@@ -4,8 +4,15 @@ Files are stored in directories named PatiendID and filenames created from Study
 
 # Versions
 - DicomExportSectra.py (base version)
+  - Extracts all DICOM files to directories named by PatientID (not anonymous)
+  - edit file_format variable to choose output file format
 - DicomExportSectraSelectedModalities.py (lets you select which modalities to include in export)
+  - As base version but lets you choose to only export files from selected modalities
+  - Edit list modality_include to choose modalities  
 - DicomExportSectraSelectedModalitiesAnonymize.py (also allows for anonymized storage providing a key file)
+  - As version over, but supports anonymized export
+  - Key file in csv format mapping anonymized serie number to PatientID is saved
+  - Edit variable num_digits to specify output format of serie number    
 
 # Instructions
 1) Export examinations from one ore more patients to a folder or CD (Sectra media export)
