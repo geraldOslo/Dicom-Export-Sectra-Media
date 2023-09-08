@@ -17,6 +17,7 @@ import numpy as np
 import tkinter as tk
 from tkinter import filedialog
 
+file_format = "tif"
 modality_include = ["IO", "DX"]  # List of modalities to include
 
 def process_files(source_dir, target_dir):
@@ -43,15 +44,12 @@ def process_file(file_path, target_dir):
     image_time = ds.StudyTime if "StudyTime" in ds else "None"
     ssn = ds.PatientID if "PatientID" in ds else "None"
 
-    # print(f"SSN: {ssn}")
-
     target_path = os.path.join(target_dir, str(ssn))
-    print(target_path)
     
     if not os.path.exists(target_path):
         os.makedirs(target_path)
         
-    target_file = f"{image_date}-{image_time}-{modality}.tif"
+    target_file = f"{image_date}-{image_time}-{modality}.{file_format}"
     target_file_path = os.path.join(target_path, target_file)
     
     img_array = ds.pixel_array
@@ -59,6 +57,7 @@ def process_file(file_path, target_dir):
     
     im = Image.fromarray(img_array)
     im.save(target_file_path)
+    print("Saved: " + target_file_path)
 
 if __name__ == "__main__":
     root = tk.Tk()

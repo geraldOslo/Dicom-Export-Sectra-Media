@@ -18,6 +18,7 @@ import tkinter as tk
 from tkinter import filedialog
 from collections import defaultdict
 
+file_format = "tif"
 modality_include = ["IO", "DX"]  # List of modalities to include
 num_digits = 4 # Format of the serie number
 
@@ -52,7 +53,7 @@ def process_file(file_path, target_dir, id_map, num_digits):
     if not os.path.exists(target_path):
         os.makedirs(target_path)
         
-    target_file = f"{image_date}-{image_time}-{modality}.tif"
+    target_file = f"{image_date}-{image_time}-{modality}.{file_format}"
     target_file_path = os.path.join(target_path, target_file)
     
     img_array = ds.pixel_array
@@ -60,6 +61,7 @@ def process_file(file_path, target_dir, id_map, num_digits):
     
     im = Image.fromarray(img_array)
     im.save(target_file_path)
+    print("Saved: " + target_file_path)
 
 # Writes the keyfile for anonymization
 def save_id_map_to_csv(id_map, csv_path, num_digits=3):
